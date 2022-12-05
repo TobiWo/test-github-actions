@@ -1,2 +1,2 @@
 print("another print")
-print("log it")
+print("log it good")
