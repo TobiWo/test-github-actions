@@ -1,4 +1,4 @@
 print("another print")
-print("log it good")
+print("log")
 
 print("test2")
