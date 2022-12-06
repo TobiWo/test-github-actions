@@ -9,3 +9,6 @@ def amazing_function() -> None:
     a = 3
     b = 4
     print(a+b)
+
+def next_function()-> None:
+    print("amazing")
