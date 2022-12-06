@@ -10,7 +10,7 @@ changelog:
     - title: New Features 🎉
       labels:
         - Semver-Minor
-        - feature
+        - enhancement
     - title: Other Changes
       labels:
         - "*"
