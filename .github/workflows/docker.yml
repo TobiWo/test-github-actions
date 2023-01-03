@@ -28,7 +28,7 @@ jobs:
           images: |
             ${{ secrets.DOCKER_REPOSITORY }}
           flavor: |
-            prefix=v
+            prefix=v,onlatest=false
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
