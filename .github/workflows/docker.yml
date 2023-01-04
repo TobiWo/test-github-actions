@@ -11,9 +11,9 @@ jobs:
   docker:
     name: Build and push docker image
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     steps:
-      - env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Docker meta
