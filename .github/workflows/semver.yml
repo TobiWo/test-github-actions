@@ -24,4 +24,4 @@ jobs:
         MAJOR_STRING_TOKEN: perf
         MINOR_STRING_TOKEN: feat
         PATCH_STRING_TOKEN: fix
-        BRANCH_HISTORY: last
+        BRANCH_HISTORY: full
