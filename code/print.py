@@ -1,4 +1,4 @@
-print("tested")
+print("test")
 
 def print_it() -> None:
     print("it")
