@@ -2,10 +2,7 @@ name: Create tag
 
 on:
   pull_request:
-    types:
-      - closed
-    types:
-      - labeled
+    types: [closed, labeled]
 
 jobs:
   tag:
