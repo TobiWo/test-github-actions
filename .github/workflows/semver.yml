@@ -1,12 +1,16 @@
 name: Create tag
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  pull_reques:
+    types:
+      - labeled
 
 jobs:
   tag:
+    if: github.event.label.name == 'release'
     name: Create and push tag
     runs-on: ubuntu-22.04
     steps:
