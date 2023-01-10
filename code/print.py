@@ -5,4 +5,4 @@ def print_it() -> None:
 
 print_it()
 print_it()
-print_it()
+
