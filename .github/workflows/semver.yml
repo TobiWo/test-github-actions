@@ -9,7 +9,7 @@ on:
 
 jobs:
   tag:
-    if: {{ startsWith(github.event.pull_request.body, '/release') }}
+    if: startsWith(github.event.pull_request.body, '/release')
     name: Create and push tag
     runs-on: ubuntu-22.04
     steps:
