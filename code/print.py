@@ -1,7 +1,7 @@
 print("test")
 
 def print_it() -> None:
-    print("it")
+    print("it now")
 
 print_it()
 print_it()
