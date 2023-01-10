@@ -9,11 +9,14 @@ jobs:
   add-labels:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github.event) }}'
       - name: add release label
         uses: actions-ecosystem/action-add-labels@v1
         if: |
           ${{ github.base_ref }} == 'main' &&
-          startsWith(github.event.pull_request.body, '/release')
+          ${{ startsWith(github.event.pull_request.body, '/release') }}
         with:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           labels: release
