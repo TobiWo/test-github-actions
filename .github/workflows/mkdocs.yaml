@@ -3,15 +3,11 @@ name: "Main"
 
 on:
   push:
-    branches:
-      - "main"
+    tags:
+      - 'v*.*.*'
 
 jobs:
   mkdocs-deploy-job:
-    permissions:
-      contents: "write"
-      issues: "write"
-      pull-requests: "write"
     runs-on: "ubuntu-22.04"
     steps:
       - name: "Checkout repository"
