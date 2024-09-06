@@ -63,9 +63,10 @@ extra:
       link: "https://twitter.com/TobiWoWo"
 
 extra_css:
-  - stylesheets/extra.css
+  - "stylesheets/extra.css"
 
 nav:
+  # yamllint disable rule:indentation
   - Home: "./index.md"
   - Part 1:
     - Introduction: "part1/introduction.md"
