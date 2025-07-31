@@ -96,6 +96,7 @@ def log_hello_world() -> None:
     """
     logger = logging.getLogger(__name__)
     logger.info("Hello World")
+    logger.info("Hello User!")
 
 
 def run_continuous_logging() -> None:
