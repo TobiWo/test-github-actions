@@ -9,6 +9,6 @@ USER app
 
 WORKDIR /home/app
 
-COPY code ./code
+COPY code ./duties
 
-ENTRYPOINT [ "python", "code/print.py" ]
+ENTRYPOINT [ "python", "duties/main.py" ]
