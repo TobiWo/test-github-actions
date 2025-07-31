@@ -1,0 +1,44 @@
+---
+name: "Create release tag"
+
+on:
+  pull_request:
+    types:
+      - "closed"
+    branches:
+      - "main"
+
+jobs:
+  semantic-release:
+    if: "startsWith(github.event.pull_request.body, '/release')"
+    name: "Create and push tag"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: "write"
+      issues: "write"
+      pull-requests: "write"
+    steps:
+      - name: "Checkout repository"
+        uses: "actions/checkout@v4"
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: "Configure Git"
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v4"
+        with:
+          node-version: "22"
+
+      - name: "Install semantic-release"
+        run: "yarn add semantic-release"
+
+      - name: "Run Semantic Release"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: "npx semantic-release"
+...
