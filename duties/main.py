@@ -95,8 +95,8 @@ def log_hello_world() -> None:
     for testing GitHub workflow configurations.
     """
     logger = logging.getLogger(__name__)
-    logger.info("Hello World!")
-    logger.info("Hello User!")
+    logger.info("Hello World!!!")
+    logger.info("Hello User!!!")
 
 
 def run_continuous_logging() -> None:
