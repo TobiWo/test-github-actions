@@ -18,10 +18,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: "ubuntu-20.04"
-            platform-name: "ubuntu-20.04-amd64"
-            build-suffix: "ubuntu20.04-amd64"
-            shell: "bash"
           - os: "ubuntu-22.04"
             platform-name: "ubuntu-22.04-amd64"
             build-suffix: "ubuntu22.04-amd64"
