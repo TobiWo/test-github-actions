@@ -11,13 +11,12 @@ from typing import Optional
 
 import yaml
 
-
 shutdown_event = threading.Event()
 
 
 def signal_handler(signum: int, frame: Optional[types.FrameType]) -> None:
     """Handle shutdown signals gracefully.
-    
+
     Args:
         signum: Signal number received
         frame: Current stack frame (can be None)
@@ -34,19 +33,19 @@ def signal_handler(signum: int, frame: Optional[types.FrameType]) -> None:
 def setup_signal_handlers() -> None:
     """Setup signal handlers for graceful shutdown across different OS platforms."""
     logger = logging.getLogger(__name__)
-    
+
     try:
         signal.signal(signal.SIGINT, signal_handler)
         logger.debug("Registered SIGINT handler")
     except (AttributeError, OSError) as e:
         logger.warning(f"Could not register SIGINT handler: {e}")
-    
+
     try:
         signal.signal(signal.SIGTERM, signal_handler)
         logger.debug("Registered SIGTERM handler")
     except (AttributeError, OSError) as e:
         logger.debug(f"SIGTERM not available on this platform: {e}")
-    
+
     if sys.platform == "win32":
         try:
             signal.signal(signal.SIGBREAK, signal_handler)
@@ -61,10 +60,16 @@ def setup_logging() -> None:
     Loads the logging configuration from config/logging_config.yaml
     and applies it to the root logger.
     """
-    config_path = Path(__file__).parent.parent / "config" / "logging_config.yaml"
+    logging_configuration_path = getattr(
+        sys, "_MEIPASS", Path(__file__).parent.parent / "config" / "logging_config.yaml"
+    )
+    if "_MEI" in str(logging_configuration_path):
+        logging_configuration_path = (
+            Path(logging_configuration_path) / "config" / "logging_config.yaml"
+        )
 
     try:
-        with open(config_path, "r", encoding="utf-8") as config_file:
+        with open(logging_configuration_path, "r", encoding="utf-8") as config_file:
             config = yaml.safe_load(config_file)
             logging.config.dictConfig(config)
     except FileNotFoundError:
@@ -73,7 +78,7 @@ def setup_logging() -> None:
             format="%(asctime)s - [%(levelname)-4s] %(message)s",
             datefmt="%d-%m-%Y %H:%M:%S",
         )
-        logging.error(f"Logging config file not found at {config_path}")
+        logging.error(f"Logging config file not found at {logging_configuration_path}")
     except Exception as e:
         logging.basicConfig(
             level=logging.INFO,
@@ -98,18 +103,18 @@ def run_continuous_logging() -> None:
     logger = logging.getLogger(__name__)
     logger.info("Starting continuous logging (every 5 seconds)...")
     logger.info("Press Ctrl+C to stop")
-    
+
     try:
         while not shutdown_event.is_set():
             log_hello_world()
-            
+
             if shutdown_event.wait(timeout=5.0):
                 break
-                
+
     except KeyboardInterrupt:
         logger.info("Received KeyboardInterrupt, shutting down gracefully...")
         shutdown_event.set()
-    
+
     logger.info("Logging stopped")
 
 
