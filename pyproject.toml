@@ -1,0 +1,22 @@
+[tool.poetry]
+authors = ["Tobiwo"]
+description = "Testing application for GitHub Actions"
+license = "MIT"
+name = "test-github-actions"
+readme = "README.md"
+repository = "https://github.com/TobiWo/test-github-actions"
+version = "v0.27.0"
+packages = [{include = "duties"}]
+
+[tool.poetry.dependencies]
+python = "~3.12"
+
+[tool.poetry.group.dev.dependencies]
+pyinstaller = "==6.2.0"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.isort]
+profile = "black"
