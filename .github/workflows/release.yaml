@@ -30,7 +30,7 @@ jobs:
             platform-name: "macos-intel-x64"
             build-suffix: "macos-intel-x64"
             shell: "bash"
-          - os: "macos-14"
+          - os: "macos-15"
             platform-name: "macos-arm64"
             build-suffix: "macos-arm64"
             shell: "bash"
@@ -62,12 +62,10 @@ jobs:
         with:
           path: ".venv"
           key: "poetry-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/poetry.lock') }}"
-          restore-keys: |
-            poetry-${{ runner.os }}-${{ runner.arch }}-
+          restore-keys: "poetry-${{ runner.os }}-${{ runner.arch }}-"
 
       - name: "Install dependencies"
-        run: |
-          poetry install --with dev
+        run: "poetry install --with dev"
 
       - name: "Get release version"
         id: "version"
