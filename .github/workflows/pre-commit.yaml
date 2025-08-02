@@ -4,12 +4,10 @@ name: "Pre-commit Validation"
 on:
   push:
     branches:
+      - "main"
       - "develop"
       - "feature/*"
       - "hotfix/*"
-  pull_request:
-    branches:
-      - "main"
 
 jobs:
   validate-pre-commit:
