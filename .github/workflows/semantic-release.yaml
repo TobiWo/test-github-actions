@@ -2,15 +2,12 @@
 name: "Create release tag"
 
 on:
-  pull_request:
-    types:
-      - "closed"
+  push:
     branches:
       - "main"
 
 jobs:
   semantic-release:
-    if: "startsWith(github.event.pull_request.body, '/release')"
     name: "Create and push tag"
     runs-on: "ubuntu-latest"
     permissions:
