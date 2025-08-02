@@ -5,11 +5,18 @@ on:
   push:
     branches:
       - "main"
+  workflow_run:
+    workflows: ["Pre-commit Validation"]
+    types:
+      - "completed"
+    branches:
+      - "main"
 
 jobs:
   semantic-release:
     name: "Create and push tag"
     runs-on: "ubuntu-latest"
+    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
     permissions:
       contents: "write"
       issues: "write"
