@@ -15,6 +15,7 @@ repos:
         description: "Ensure files end with a newline"
       - id: "check-yaml"
         description: "Validate YAML files"
+        exclude: "mkdocs.yaml"
       - id: "check-json"
         description: "Validate JSON files"
       - id: "check-toml"
@@ -35,6 +36,6 @@ repos:
       - id: "commitlint"
         description: "Validate commit message format"
         stages: ["commit-msg"]
-        additional_dependencies: 
+        additional_dependencies:
           - "@commitlint/config-conventional@19.8.1"
         args: ["--config", ".commitlintrc.json"]

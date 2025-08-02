@@ -78,10 +78,10 @@ jobs:
         run: |
           export PYTHONHASHSEED=42
           export BUILD_FILE_NAME=test-github-actions-${{ steps.version.outputs.version }}-${{ matrix.build-suffix }}
-          
+
           # Create build directory
           mkdir ${BUILD_FILE_NAME}
-          
+
           # Build executable using PyInstaller
           poetry run pyinstaller \
             --clean \
@@ -90,7 +90,7 @@ jobs:
             --name test-github-actions \
             --distpath ./${BUILD_FILE_NAME} \
             ./duties/main.py
-          
+
           # Create archive
           if [[ "${{ runner.os }}" == "Windows" ]]; then
             7z a ${BUILD_FILE_NAME}.zip ./${BUILD_FILE_NAME}
@@ -99,19 +99,19 @@ jobs:
             tar -zcvf ${BUILD_FILE_NAME}.tar.gz ./${BUILD_FILE_NAME}
             ARCHIVE_NAME=${BUILD_FILE_NAME}.tar.gz
           fi
-          
+
           # Generate checksums
           if [[ "${{ runner.os }}" == "Linux" ]]; then
             sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
           elif [[ "${{ runner.os }}" == "macOS" ]]; then
             shasum -a 256 ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
           fi
-          
+
           # Prepare artifacts
           mkdir -p /tmp/artifacts
           cp ${ARCHIVE_NAME} /tmp/artifacts/
           cp ${ARCHIVE_NAME}.sha256 /tmp/artifacts/
-          
+
           echo "Archive created: ${ARCHIVE_NAME}"
           echo "artifact_name=${ARCHIVE_NAME}" >> $GITHUB_OUTPUT
 
@@ -159,12 +159,12 @@ jobs:
         run: |
           # Create release assets directory
           mkdir -p release-assets
-          
+
           # Copy all artifacts to release assets
           find artifacts -name "*.tar.gz" -exec cp {} release-assets/ \;
           find artifacts -name "*.zip" -exec cp {} release-assets/ \;
           find artifacts -name "*.sha256" -exec cp {} release-assets/ \;
-          
+
           echo "Release assets prepared:"
           ls -la release-assets/
 
@@ -184,12 +184,12 @@ jobs:
         run: |
           echo "Verifying checksums for release assets..."
           cd release-assets
-          
+
           for checksum_file in *.sha256; do
             if [[ -f "$checksum_file" ]]; then
               echo "Verifying $checksum_file..."
               sha256sum -c "$checksum_file"
             fi
           done
-          
+
           echo "All checksums verified successfully!"
