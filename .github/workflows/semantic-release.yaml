@@ -32,7 +32,9 @@ jobs:
           node-version: "22"
 
       - name: "Install semantic-release"
-        run: "yarn add semantic-release"
+        run: >
+          yarn add semantic-release
+          conventional-changelog-conventionalcommits
 
       - name: "Run Semantic Release"
         env:

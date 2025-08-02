@@ -1,10 +1,59 @@
 {
-    "branches": [
-        "main"
+  "branches": [
+    "main"
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            {
+              "section": "\ud83d\ude80 Features",
+              "type": "feat"
+            },
+            {
+              "section": "\ud83d\udc1b Bug Fixes",
+              "type": "fix"
+            },
+            {
+              "section": "\ud83d\udcd6 Documentation",
+              "type": "docs"
+            },
+            {
+              "section": "\ud83d\udd27 Other",
+              "type": "refactor"
+            },
+            {
+              "section": "\ud83d\udd27 Other",
+              "type": "style"
+            },
+            {
+              "section": "\ud83d\udd27 Other",
+              "type": "test"
+            },
+            {
+              "section": "\ud83d\udd27 Other",
+              "type": "chore"
+            },
+            {
+              "section": "\ud83d\udd27 Other",
+              "type": "perf"
+            },
+            {
+              "section": "\ud83d\udd27 Other",
+              "type": "ci"
+            },
+            {
+              "section": "\ud83d\udd27 Other",
+              "type": "build"
+            }
+          ]
+        }
+      }
     ],
-    "plugins": [
-        "@semantic-release/commit-analyzer",
-        "@semantic-release/release-notes-generator",
-        "@semantic-release/github"
-    ]
+    "@semantic-release/github"
+  ]
 }
