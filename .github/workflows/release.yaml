@@ -159,10 +159,9 @@ jobs:
       - name: "Get release version"
         id: "version"
         run: |
-          VERSION="${GITHUB_REF#refs/tags/}"
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "version_no_v=${VERSION#v}" >> $GITHUB_OUTPUT
-
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "version_no_v=${VERSION#v}" >> "$GITHUB_OUTPUT"
 
       - name: "Prepare release assets"
         run: |
