@@ -53,13 +53,13 @@ jobs:
               # New branch - validate only the last commit
               echo "New branch detected, validating latest commit"
               pre-commit run \
-                --config .pre-commit/pre-commit-config.yaml \
+                --config .pre-commit/.pre-commit-config.yaml \
                 --from-ref HEAD~1 --to-ref HEAD --show-diff-on-failure
             else
               # Existing branch - validate pushed commits
               echo "Validating commits: ${{ github.event.before }}..${{ github.event.after }}"
               pre-commit run \
-                --config .pre-commit/pre-commit-config.yaml \
+                --config .pre-commit/.pre-commit-config.yaml \
                 --from-ref ${{ github.event.before }} \
                 --to-ref ${{ github.event.after }} \
                 --show-diff-on-failure
@@ -70,7 +70,7 @@ jobs:
             echo "Validating PR commits: \
               ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
             pre-commit run \
-              --config .pre-commit/pre-commit-config.yaml \
+              --config .pre-commit/.pre-commit-config.yaml \
               --from-ref ${{ github.event.pull_request.base.sha }} \
               --to-ref ${{ github.event.pull_request.head.sha }} \
               --show-diff-on-failure
