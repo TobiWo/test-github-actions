@@ -57,7 +57,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i 's/version = \".*\"/version = \"v${nextRelease.version}\"/' pyproject.toml && git add pyproject.toml"
+        "prepareCmd": "sed -i 's/version = \".*\"/version = \"v${nextRelease.version}\"/' pyproject.toml"
       }
     ],
     [
