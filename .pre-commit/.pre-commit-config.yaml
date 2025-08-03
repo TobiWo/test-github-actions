@@ -29,7 +29,47 @@ repos:
         description: "Replaces or checks mixed line endings"
       - id: "check-executables-have-shebangs"
         description: "Ensures that (non-binary) executables have a shebang"
-
+      - id: "pretty-format-json"
+        description: "Sets a standard for formatting json files"
+        args: ["--autofix", "--indent", "2"]
+      - id: "no-commit-to-branch"
+        description: "Prevent commits to specific branches"
+        args: ["--branch", "main"]
+      - id: "requirements-txt-fixer"
+        description: "Sorts entries in requirements.txt"
+  - repo: "https://github.com/adrienverge/yamllint.git"
+    rev: "v1.37.1"
+    hooks:
+      - id: "yamllint"
+        args:
+          - "--strict"
+          - "--config-file"
+          - ".pre-commit/.yamllint.yaml"
+  - repo: "https://github.com/igorshubovych/markdownlint-cli"
+    rev: "v0.45.0"
+    hooks:
+      - id: "markdownlint"
+        args: ["--config", ".pre-commit/.markdownlint.yaml"]
+  - repo: "https://github.com/shellcheck-py/shellcheck-py"
+    rev: "v0.10.0.1"
+    hooks:
+      - id: "shellcheck"
+  # - repo: "https://github.com/koalaman/shellcheck-precommit"
+  #   rev: "v0.10.0"
+  #   hooks:
+  #     - id: "shellcheck"
+  #       entry: "shellcheck"
+  #       language: "python"
+  #       types: ["shell"]
+  #       require_serial: true
+  - repo: "https://github.com/maxwinterstein/shfmt-py"
+    rev: "v3.12.0.1"
+    hooks:
+      - id: "shfmt"
+  - repo: "https://github.com/rhysd/actionlint"
+    rev: "v1.7.7"
+    hooks:
+      - id: "actionlint"
   - repo: "https://github.com/alessandrojcm/commitlint-pre-commit-hook"
     rev: "v9.22.0"
     hooks:
@@ -38,4 +78,5 @@ repos:
         stages: ["commit-msg"]
         additional_dependencies:
           - "@commitlint/config-conventional@19.8.1"
-        args: ["--config", ".commitlintrc.json"]
+        args: ["--config", ".pre-commit/.commitlintrc.json"]
+...
