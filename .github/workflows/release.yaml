@@ -1,6 +1,7 @@
 ---
 name: "Release"
 
+# yamllint disable-line rule:truthy
 on:
   push:
     tags:
@@ -25,6 +26,14 @@ jobs:
           - os: "ubuntu-24.04"
             platform-name: "ubuntu-24.04-amd64"
             build-suffix: "ubuntu24.04-amd64"
+            shell: "bash"
+          - os: "ubuntu-22.04-arm"
+            platform-name: "ubuntu-22.04-arm"
+            build-suffix: "ubuntu-22.04-arm"
+            shell: "bash"
+          - os: "ubuntu-24.04-arm"
+            platform-name: "ubuntu-24.04-arm"
+            build-suffix: "ubuntu24.04-arm"
             shell: "bash"
           - os: "macos-13"
             platform-name: "macos-intel-x64"
@@ -171,7 +180,7 @@ jobs:
       - name: "Create Release"
         uses: "softprops/action-gh-release@v2"
         with:
-          tag_name: ${{ steps.version.outputs.version }}
+          tag_name: "${{ steps.version.outputs.version }}"
           name: "Release ${{ steps.version.outputs.version }}"
           files: "release-assets/*"
           draft: false
@@ -193,3 +202,4 @@ jobs:
           done
 
           echo "All checksums verified successfully!"
+...

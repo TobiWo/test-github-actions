@@ -1,6 +1,7 @@
 ---
 name: "Pre-commit Validation"
 
+# yamllint disable-line rule:truthy
 on:
   push:
     branches:
@@ -51,17 +52,28 @@ jobs:
             if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
               # New branch - validate only the last commit
               echo "New branch detected, validating latest commit"
-              pre-commit run --from-ref HEAD~1 --to-ref HEAD --show-diff-on-failure
+              pre-commit run \
+                --config .pre-commit/pre-commit-config.yaml \
+                --from-ref HEAD~1 --to-ref HEAD --show-diff-on-failure
             else
               # Existing branch - validate pushed commits
               echo "Validating commits: ${{ github.event.before }}..${{ github.event.after }}"
-              pre-commit run --from-ref ${{ github.event.before }} --to-ref ${{ github.event.after }} --show-diff-on-failure
+              pre-commit run \
+                --config .pre-commit/pre-commit-config.yaml \
+                --from-ref ${{ github.event.before }} \
+                --to-ref ${{ github.event.after }} \
+                --show-diff-on-failure
             fi
           else
             echo "🔍 Validating PR commits to main..."
             # PR to main - validate all commits in the PR
-            echo "Validating PR commits: ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
-            pre-commit run --from-ref ${{ github.event.pull_request.base.sha }} --to-ref ${{ github.event.pull_request.head.sha }} --show-diff-on-failure
+            echo "Validating PR commits: \
+              ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+            pre-commit run \
+              --config .pre-commit/pre-commit-config.yaml \
+              --from-ref ${{ github.event.pull_request.base.sha }} \
+              --to-ref ${{ github.event.pull_request.head.sha }} \
+              --show-diff-on-failure
           fi
 
       - name: "Show validation help on failure"
@@ -103,3 +115,4 @@ jobs:
           echo "💡 Set up local pre-commit hooks for immediate feedback:"
           echo "  pip install pre-commit && pre-commit install"
           exit 1
+...

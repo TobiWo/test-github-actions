@@ -1,6 +1,7 @@
 ---
 name: "Build and Push docker image"
 
+# yamllint disable-line rule:truthy
 on:
   push:
     branches:
