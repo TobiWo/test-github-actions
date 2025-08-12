@@ -1,2 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 def my_awesome_function() -> None:
-    print("This is an awesome function!")
+    logger.info("This is an awesome function!")
